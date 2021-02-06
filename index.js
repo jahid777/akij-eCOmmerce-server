@@ -7,6 +7,7 @@ const fileUpload = require('express-fileupload');
 const ObjectId = require('mongodb').ObjectId;
 
 
+
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.7adfu.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 const app = express();
@@ -40,45 +41,45 @@ client.connect(err => {
 
 
   //add a product from createProduct page with image
-  app.post('/addAProduct',(req,res)=> {
-    const file = req.files.file;
-    const name= req.body.name;
-    const date = req.body.date;
-    const price = req.body.price;
-    shopCollection.insertOne({file, name, date, price})
-    .then((result) => {
-      res.send(result.insertedCount > 0);
-    });
-    file.mv(`${__dirname}/products/${file.name}`,err =>{
-      if(err){
-        console.log(err)
-        return res.status(500).send({msg:"can not upload"});
-      }
-      return res.send({name: file.name, path: `/${file.name}`})
-    })  
-   })
+  // app.post('/addAProduct',(req,res)=> {
+  //   const file = req.files.file;
+  //   const name= req.body.name;
+  //   const date = req.body.date;
+  //   const price = req.body.price;
+  //   shopCollection.insertOne({file, name, date, price})
+  //   .then((result) => {
+  //     res.send(result.insertedCount > 0);
+  //   });
+  //   file.mv(`${__dirname}/products/${file.name}`,err =>{
+  //     if(err){
+  //       console.log(err)
+  //       return res.status(500).send({msg:"can not upload"});
+  //     }
+  //     return res.send({name: file.name, path: `/${file.name}`})
+  //   })  
+  //  })
 
 
 //this is for 64bit with image so that it can store in mongodb + it will go heroku easly
-//   app.post('/addAProduct', (req, res) => {
-//     const file = req.files.file;
-//     const name = req.body.name;
-//     const date = req.body.date;
-//     const price = req.body.price;
-//     const newImg = file.data;
-//     const encImg = newImg.toString('base64');
+  app.post('/addAProduct', (req, res) => {
+    const file = req.files.file;
+    const name = req.body.name;
+    const date = req.body.date;
+    const price = req.body.price;
+    const newImg = file.data;
+    const encImg = newImg.toString('base64');
 
-//     var image = {
-//         contentType: file.mimetype,
-//         size: file.size,
-//         img: Buffer.from(encImg, 'base64')
-//     };
+    var image = {
+        contentType: file.mimetype,
+        size: file.size,
+        img: Buffer.from(encImg, 'base64')
+    };
 
-//     shopCollection.insertOne({ name, date, price,image })
-//         .then(result => {
-//             res.send(result.insertedCount > 0);
-//         })
-// })
+    shopCollection.insertOne({ name, date, price,image })
+        .then(result => {
+            res.send(result.insertedCount > 0);
+        })
+})
 
 
 
