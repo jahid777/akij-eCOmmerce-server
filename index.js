@@ -94,6 +94,15 @@ client.connect(err => {
   });
 
 
+  //allProductControl component ar jonno  sob ghula data read
+  app.get('/getALlDataForUpdate',(req, res)=>{
+   shopCollection.find({})
+   .toArray((err,documents)=>{
+     res.send(documents);
+   })
+ });
+
+
 
 
   //delete korer jonno allProductControl theke
