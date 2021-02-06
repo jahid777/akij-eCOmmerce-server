@@ -60,7 +60,7 @@ client.connect(err => {
   //  })
 
 
-//this is for 64bit with image so that it can store in mongodb + it will go heroku easly
+//this is for 64bit with image so that it can store in mongodb + it will go heroku comfortably 
   app.post('/addAProduct', (req, res) => {
     const file = req.files.file;
     const name = req.body.name;
