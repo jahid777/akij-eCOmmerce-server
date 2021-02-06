@@ -86,7 +86,7 @@ client.connect(err => {
    //sobgula data read korabo
    app.get('/getALlData',(req, res)=>{
      const search = req.query.search;
-    shopCollection.find({name: {$regex: search}}).toLowerCase()
+    shopCollection.find({name: {$regex: search}})
     // shopCollection.find({})
     .toArray((err,documents)=>{
       res.send(documents);
