@@ -88,6 +88,7 @@ client.connect(err => {
      const search = req.query.search;
     shopCollection.find({name: {$regex: search, '$options' : 'i'}}).sort({"date":1})
     //$options:'i' for search take non sensitive koer jonno
+    //.sort({"date":1}) ata date onujai dhekabe
     .toArray((err,documents)=>{
       res.send(documents);
     })
