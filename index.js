@@ -86,8 +86,8 @@ client.connect(err => {
    //sobgula data read korabo
    app.get('/getALlData',(req, res)=>{
      const search = req.query.search;
-    shopCollection.find({name: {$regex: search, '$options' : 'i'}})
-    // shopCollection.find({})
+    shopCollection.find({name: {$regex: search, '$options' : 'i'}}).sort({"date":1})
+    //$options:'i' for search take non sensitive koer jonno
     .toArray((err,documents)=>{
       res.send(documents);
     })
